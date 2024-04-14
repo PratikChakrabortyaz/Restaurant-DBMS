@@ -1,0 +1,16 @@
+1)	Ingredient: SQL> create table ingredient(ingr_id numeric(3) primary key,quan
+tity numeric(2));
+2)	Discount_Policy: SQL> create table discount_policy(disc_id numeric(3) primary key,percentage decimal(3,2));
+3)	Menu: SQL> create table menu(item_id numeric(3) primary key,item_name,varchar(40), price numeric(5,2));
+4)	Tables: SQL> create table Tables(table_no numeric(3) primary key,availability varchar(1) check (availability in ('Y','N')));
+5)	Customer: SQL> create table customer(c_id numeric(3) primary key,name varchar(30), phone_number varchar(15), table_no numeric(3),duration
+numeric(3), foreign key(table_no) references Tables(table_no));
+6)	Orders: SQL> create table orders(order_id numeric(3) primary key,c_id numeric(3),item_id numeric(3),quantity numeric(3), foreign key(c_id) references customer(c_id), foreign key(item_id) references menu(item_id));
+7)	Bill: SQL> create table bill(bill_id numeric(3) primary key,c_id n
+umeric(3), amount numeric(10,2),disc_id numeric(3), foreign
+key(c_id) references customer(c_id), foreign key(disc_id) re
+ferences discount_policy(disc_id));
+8)	Gives: SQL> create table gives(c_id numeric(3) primary key, r_id numeric(3),  foreign key(c_id) references customer(c_id),foreign key(r_id) references rating(r_id));
+9)	Made_Of:SQL> create table made_of(item_id numeric(3),ingr_id numeric(3), primary key(item_id,ingr_id), foreign key(item_id) references menu(item_id),foreign key(ingr_id) references ingredient(ingr_id));
+10)	Rating:SQL->create table rating(r_id  numeric(3) primary key, rating numeric(1) check (rating in (1,2,3,4,5)), review varchar(50));
+
