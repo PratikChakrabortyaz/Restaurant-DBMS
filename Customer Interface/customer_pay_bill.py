@@ -24,7 +24,7 @@ def generate_bill(c_id):
     total_price_after_discount = total_price - discount
     bill_text.insert(tk.END, f"\nTotal Price: ${total_price:.2f}\nDiscount Percentage: {discount_percentage*100}%\nDiscount Applied: ${discount:.2f}\nTotal Price after Discount: ${total_price_after_discount:.2f}\n")
     insert_bill(total_price_after_discount, c_id)
-    give_rating_button = tk.Button(root, text="Give Rating", command=lambda: give_rating(c_id))
+    give_rating_button = tk.Button(root, text="Give Rating", command=lambda: give_rating(c_id), bg="#CD5C5C", fg="white")  # Indian red button
     give_rating_button.pack()
 
 def insert_bill(total_price_after_discount, c_id):
@@ -67,18 +67,28 @@ def get_discount_id(total_price_after_discount):
         return None
 
 def give_rating(c_id):
+    root.destroy()
     subprocess.run(['python', 'C:/Users/Pratik Chakraborty/Documents/customer_gives_rating.py', str(c_id)])
+    
 
 # GUI Setup
 root = tk.Tk()
 root.title("Bill Payment")
 
+# Set window dimensions
+window_width = root.winfo_screenwidth() // 2
+window_height = root.winfo_screenheight() // 2
+root.geometry(f"{window_width}x{window_height}")
+
+# Styling
+root.configure(bg="#F5DEB3")  # Wheat background color
+
 c_id = sys.argv[1]
 
-generate_bill_button = tk.Button(root, text="Generate Bill", command=lambda: generate_bill(c_id))
+generate_bill_button = tk.Button(root, text="Generate Bill", command=lambda: generate_bill(c_id), bg="#CD5C5C", fg="white")  # Indian red button
 generate_bill_button.pack()
 
-bill_text = tk.Text(root, height=15, width=50)
+bill_text = tk.Text(root, height=15, width=50, bg="#FAEBD7", fg="#8B4513", font=("Helvetica", 10))  # Linen background, saddle brown text color
 bill_text.pack()
 
 root.mainloop()
