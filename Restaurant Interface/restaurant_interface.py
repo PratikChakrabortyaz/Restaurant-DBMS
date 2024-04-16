@@ -16,7 +16,7 @@ def display_update_menu_item_fields():
     item_name_entry.pack()
     price_label.pack()
     price_entry.pack()
-    update_menu_item_button.pack()
+    submit_menu_item_button.pack()  # Add the submit menu item button
 
 # Function to update menu items
 def update_menu_item():
@@ -29,6 +29,11 @@ def update_menu_item():
         result_label.config(text="Menu item updated successfully!")
     except ValueError:
         result_label.config(text="Invalid price! Please enter a valid number.")
+
+# Function to submit menu item update
+def submit_menu_item_update():
+    update_menu_item()
+    result_label.config(text="Menu item updated successfully!")
 
 # Function to display the most ordered item in menu
 def most_ordered_item():
@@ -72,7 +77,6 @@ def create_and_display_view():
     result_label.config(text="View created successfully!")
     display_view()
 
-
 def display_view():
     cursor.execute("""
         SELECT name, table_no, item_name, rating
@@ -92,9 +96,6 @@ def display_view():
     for row in rows:
         view_text.insert(tk.END, " | ".join(str(value) for value in row) + "\n")
 
-
-
-
 # GUI Setup
 root = tk.Tk()
 root.title("Restaurant Side Interface")
@@ -105,6 +106,9 @@ item_name_entry = tk.Entry(root)
 
 price_label = tk.Label(root, text="Price:")
 price_entry = tk.Entry(root)
+
+# Buttons
+submit_menu_item_button = tk.Button(root, text="Submit Menu Item", command=submit_menu_item_update)
 
 # Main menu buttons
 total_revenue_button = tk.Button(root, text="Total Revenue Generated", command=total_revenue_generated)
